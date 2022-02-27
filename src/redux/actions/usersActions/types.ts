@@ -1,0 +1,6 @@
+export const GET_ALL_USERS_SUCCESS:string = "GET_ALL_USERS_SUCCESS"
+export const GET_ALL_USERS_FAIL:string = "GET_ALL_USERS_FAIL"
+export const SIGNUP_SUCCESS:string = "SIGNUP_SUCCESS"
+export const SIGNUP_FAIL:string = "SIGNUP_FAIL"
+export const LOGIN_SUCCESS:string = "LOGIN_SUCCESS"
+export const LOGIN_FAIL:string = "LOGIN_FAIL"

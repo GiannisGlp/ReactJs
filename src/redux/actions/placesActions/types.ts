@@ -1,0 +1,2 @@
+export const GET_ALL_PLACES_SUCCESS:string = "GET_ALL_PLACES_SUCCESS"
+export const GET_ALL_PLACES_FAIL:string = "GET_ALL_PLACES_FAIL"

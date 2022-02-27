@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './App.css';
 import MainRoutes from './containers/Routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersSelector } from './redux/reducers/usersReducer';

@@ -1,4 +1,4 @@
-import { axiosInstance } from "../axios";
+import { axiosInstance } from "../utilities/axios";
 import {AppDispatch} from "../redux/store"
 import { AxiosResponse } from 'axios';
 import { Method } from "axios";

@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Home = () => {
-  return (
-    <div>
-      <p>Home</p>
-    </div>
-  );
+  return <p style={{ color: 'white' }}>Home</p>;
 };
 
 export default Home;

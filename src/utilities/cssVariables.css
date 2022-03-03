@@ -1,0 +1,9 @@
+:root {
+  --magenta: rgb(255, 0, 255);
+  --neongreen: rgb(57, 255, 20);
+  --main-background: rgb(145, 163, 176);
+  --red: rgb(255, 83, 73);
+  --main-text-color: rgb(240, 255, 255);
+  --oxford-blue: rgb(0, 33, 71);
+  --hover-white: rgb(245, 255, 240);
+}

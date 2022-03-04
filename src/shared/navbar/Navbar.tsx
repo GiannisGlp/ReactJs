@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import classes from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import { navLinksData } from '../Routes';
+import { navLinksData } from '../../containers/Routes';
 
 function Navbar() {
   const [showBurger, setShowBurger] = useState<boolean>(false);
 
   return (
-    <nav className={classes.navbar}>
+    <nav className={classes.navBar}>
       <div className={classes.logo}>
         <h4>OMNIA</h4>
       </div>

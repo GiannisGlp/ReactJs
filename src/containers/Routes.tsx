@@ -4,7 +4,8 @@ import Home from './home/pages/Home';
 import Users from './users/pages/Users';
 import Products from './products/pages/Products';
 import Places from './places/pages/Places';
-import Navbar from './navbar/Navbar';
+import Navbar from '../shared/navbar/Navbar';
+import Footer from '../shared/footer/Footer';
 
 export const navLinksData = [
   { path: 'home', name: 'home', element: <Home /> },
@@ -23,14 +24,24 @@ export const navLinksData = [
 
 const MainRoutes = (): ReactElement => {
   return (
-    <>
+    <div
+      style={{
+        minHeight: '100vh',
+        overflow: 'auto',
+      }}
+    >
       <Navbar />
+
       <Routes>
-        {navLinksData.map((item) => {
-          return <Route path={item.path} element={item.element}></Route>;
+        {navLinksData.map((item, index) => {
+          return (
+            <Route key={index} path={item.path} element={item.element}></Route>
+          );
         })}
       </Routes>
-    </>
+
+      <Footer />
+    </div>
   );
 };
 

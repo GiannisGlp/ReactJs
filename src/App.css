@@ -8,7 +8,6 @@
   margin: 0;
   padding: 0;
 }
-
 /* Remove default margin */
 body,
 h1,
@@ -22,6 +21,7 @@ blockquote,
 dl,
 dd {
   margin: 0;
+  color: white;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -37,14 +37,18 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  min-height: 1vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  font-size: 16px;
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
+  color: inherit;
+  text-decoration: inherit;
+  height: 1.5em;
 }
 
 /* Make images easier to work with */

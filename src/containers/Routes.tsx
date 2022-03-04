@@ -11,7 +11,9 @@ export const navLinksData = [
   { path: 'home', name: 'home', element: <Home /> },
   { path: 'users', name: 'users', element: <Users /> },
   { path: 'places', name: 'places', element: <Places /> },
+  { path: 'sports', name: 'sports', element: <Home /> },
   { path: 'products', name: 'products', element: <Products /> },
+  { path: 'products', name: 'stocks', element: <Products /> },
   {
     path: '*',
     element: (

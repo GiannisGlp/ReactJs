@@ -19,7 +19,7 @@ const SideNav = (props: any) => {
         >
           <div
             onClick={() => setShowMenu((c) => !c)}
-            className={showMenu ? classes.arrowDown : ''}
+            className={showMenu ? classes.arrowDown : classes.arrowRight}
           >
             <DoubleArrow style={{ color: 'red' }} />
           </div>

@@ -26,11 +26,15 @@
   align-items: center;
   column-gap: 40px;
   border-radius: var(--border-radius);
+  z-index: 1;
   animation: fadeOutNav 0.3s ease-out forwards 0.1s;
 }
 .arrowDown {
   cursor: pointer;
   animation: arrowRotateDown 0.5s ease-out forwards 0.1s;
+}
+.arrowRight {
+  cursor: pointer;
 }
 
 .rowWrapper {
@@ -91,12 +95,12 @@
     width: 6vw;
   }
   to {
-    width: 20vw;
+    width: 15vw;
   }
 }
 @keyframes fadeInNav {
   from {
-    width: 20vw;
+    width: 15vw;
   }
   to {
     width: 6vw;
@@ -108,5 +112,18 @@
   }
   to {
     transform: rotate(90deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .arrowDown,
+  .arrowRight {
+    display: none;
+  }
+  .navUl {
+    width: 8vw;
   }
 }

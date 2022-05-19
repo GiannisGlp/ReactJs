@@ -2,7 +2,21 @@ import apiServices from '../../../services/apiServices';
 import { Actions } from './types';
 import { AppDispatch } from '../../store';
 
-export const getPlacesByUserId = (params: object) => {
+export interface CreatePlaceData {
+  address: string;
+  title: string;
+  description: string;
+  creator: string;
+}
+
+type GetPlaceByUserID = {
+  uid: string;
+};
+type DeletePlace = {
+  pid: string;
+};
+
+export const getPlacesByUserId = (params: GetPlaceByUserID) => {
   return async (dispatch: AppDispatch) =>
     await dispatch(
       apiServices({
@@ -15,7 +29,7 @@ export const getPlacesByUserId = (params: object) => {
     );
 };
 
-export const createPlace = (data: object) => {
+export const createPlace = (data: CreatePlaceData) => {
   return async (dispatch: AppDispatch) =>
     await dispatch(
       apiServices({
@@ -24,6 +38,19 @@ export const createPlace = (data: object) => {
         data: data,
         SUCCESS: Actions.CREATE_PLACE_SUCCESS,
         FAILURE: Actions.CREATE_PLACE_FAIL,
+      })
+    );
+};
+
+export const deletePlace = (params: DeletePlace) => {
+  return async (dispatch: AppDispatch) =>
+    await dispatch(
+      apiServices({
+        url: '/places/deletePlace',
+        method: 'delete',
+        params: params,
+        SUCCESS: Actions.DELETE_PLACE_SUCCESS,
+        FAILURE: Actions.DELETE_PLACE_FAIL,
       })
     );
 };

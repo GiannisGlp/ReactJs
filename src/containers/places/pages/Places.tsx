@@ -4,6 +4,7 @@ import { placesSelector } from '../../../redux/reducers/placesReducer';
 import {
   getPlacesByUserId,
   createPlace,
+  deletePlace,
 } from '../../../redux/actions/placesActions';
 import classes from './Places.module.css';
 import Map from '../../../shared/map/Map';
@@ -14,19 +15,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Pagination from '../../../shared/pagination/Pagination';
 import usePagination from '../../../shared/pagination/usePagination';
 import AddModalContent from '../components/AddModalContent';
+import { PlacesIF } from '../../../redux/initialState';
 
-export interface PlacesIF {
-  address: string;
-  creator: string;
-  description: string;
-  id: string;
-  image: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
-  title: string;
-}
 const Places = () => {
   const dispatch = useDispatch();
   const { placesData } = useSelector(placesSelector);
@@ -37,18 +27,20 @@ const Places = () => {
     lng: 0,
   });
 
+  const [titleValue, setTitleValue] = useState('');
+  const [addressValue, setAddressValue] = useState('');
+  const [descriptionValue, setDesciptionValue] = useState('');
+
   const onClickMapHandler = (location: PlacesIF['location']) => {
     setMapLocation(location);
     setDisplayMapModal(true);
   };
-  const onClickDelete = (id: string) => {
-    console.log(id);
-  };
+
   const onClickEdit = (id: string) => {
     console.log(id);
   };
 
-  const dataLimit = 3;
+  const dataLimit = 10;
   const pageLimit = Math.ceil(placesData.length / dataLimit);
 
   const {
@@ -68,12 +60,28 @@ const Places = () => {
       </div>
     );
   };
-  // let testData = {
-  //   address: 'Washington DC',
-  //   title: 'The Capital of the United States',
-  //   creator: '62194ddcbc640c5dad53639d',
-  //   description: 'White House Is in the Capitol',
-  // };
+  console.log('placesdata', placesData);
+  const clearAddPlaceForm = () => {
+    setDisplayAddModal(false);
+    setTitleValue('');
+    setAddressValue('');
+    setDesciptionValue('');
+  };
+
+  const addNewPlaceHandler = () => {
+    dispatch(
+      createPlace({
+        address: addressValue,
+        title: titleValue,
+        description: descriptionValue,
+        creator: '62194ddcbc640c5dad53639d',
+      })
+    );
+    clearAddPlaceForm();
+  };
+  const onClickDeleteHandler = (id: string) => {
+    dispatch(deletePlace({ pid: id }));
+  };
 
   useEffect(() => {
     dispatch(getPlacesByUserId({ uid: '62194ddcbc640c5dad53639d' }));
@@ -91,16 +99,27 @@ const Places = () => {
       <Modal
         showModal={displayAddModal}
         setShowModal={setDisplayAddModal}
+        firstButtonAction={clearAddPlaceForm}
         firstButtonTitle="Cancel"
         secondButtonTitle="Create"
         secondButton={true}
-        okButton={() => console.log('hi')}
-        content={<AddModalContent />}
+        okButton={addNewPlaceHandler}
+        content={
+          <AddModalContent
+            titleValue={titleValue}
+            addressValue={addressValue}
+            descriptionValue={descriptionValue}
+            setAddressValue={setAddressValue}
+            setDescriptionValue={setDesciptionValue}
+            setTitleValue={setTitleValue}
+          />
+        }
       />
       {/*Map Modal  */}
       <Modal
         showModal={displayMapModal}
         setShowModal={setDisplayMapModal}
+        firstButtonAction={() => setDisplayMapModal(false)}
         firstButtonTitle="Ok"
         content={<MapModalContent />}
       />
@@ -116,13 +135,13 @@ const Places = () => {
             paginatedGroup={paginatedGroup}
           >
             <div className={classes.cardsWrapper}>
-              {paginatedData?.map((item: PlacesIF) => {
+              {paginatedData?.map((place: PlacesIF) => {
                 return (
                   <PlacesCard
-                    key={item.id}
-                    data={item}
+                    key={place.id}
+                    data={place}
                     onClickMap={onClickMapHandler}
-                    onClickDelete={onClickDelete}
+                    onClickDelete={onClickDeleteHandler}
                     onClickEdit={onClickEdit}
                   />
                 );

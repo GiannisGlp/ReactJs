@@ -1,12 +1,14 @@
 import initialState from '../initialState';
 import { Actions } from '../actions/placesActions/types';
-import { StateIF } from '../initialState';
+import { StateIF, PlacesIF } from '../initialState';
 
 type Action = {
   type: Actions;
   payload: {
     message: string | null;
     places: [];
+    place: PlacesIF;
+    placeId: string;
   };
 };
 
@@ -29,12 +31,30 @@ export default function placesReducer(
       };
     }
     case Actions.CREATE_PLACE_SUCCESS: {
+      const arr: PlacesIF[] = Object.assign([], state.placesData);
+      arr.push(payload.place);
       return {
         ...state,
-        createdPlace: payload,
+        placesData: arr,
       };
     }
     case Actions.CREATE_PLACE_FAIL: {
+      return {
+        ...state,
+        error: payload.message,
+      };
+    }
+    case Actions.DELETE_PLACE_SUCCESS: {
+      const arr: PlacesIF[] = Object.assign([], state.placesData);
+      const index = state.placesData.findIndex((x) => x.id === payload.placeId);
+      console.log('index', payload.placeId);
+      arr.splice(index, 1);
+      return {
+        ...state,
+        placesData: arr,
+      };
+    }
+    case Actions.DELETE_PLACE_FAIL: {
       return {
         ...state,
         error: payload.message,

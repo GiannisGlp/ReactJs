@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../../../shared/card/Card';
 import MainButton from '../../../shared/buttons/MainButton';
 import classes from './PlacesCard.module.css';
-import { PlacesIF } from '../pages/Places';
+import { PlacesIF } from '../../../redux/initialState';
 import MapIcon from '@mui/icons-material/Map';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';

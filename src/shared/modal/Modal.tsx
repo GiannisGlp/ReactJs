@@ -7,6 +7,7 @@ interface IModal {
   secondButtonTitle?: string;
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  firstButtonAction: () => void;
   content: React.ReactNode;
   okButton?: () => void;
   secondButton?: boolean;
@@ -20,6 +21,7 @@ const Modal = ({
   content,
   okButton = () => {},
   secondButton = false,
+  firstButtonAction,
 }: IModal) => {
   const showHideClassName = showModal
     ? [classes.modal, classes.displayBlock].join(' ')
@@ -33,10 +35,7 @@ const Modal = ({
         {/* <div className={classes.modalTop}></div> */}
         {content}
         <div className={classes.modalFooter}>
-          <MainButton
-            title={firstButtonTitle}
-            onClick={() => setShowModal(false)}
-          />
+          <MainButton title={firstButtonTitle} onClick={firstButtonAction} />
           {secondButton && (
             <MainButton title={secondButtonTitle} onClick={okButton} />
           )}

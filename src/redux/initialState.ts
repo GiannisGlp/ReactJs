@@ -1,3 +1,16 @@
+export interface PlacesIF {
+  address: string;
+  creator: string;
+  description: string;
+  id: string;
+  image: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  title: string;
+}
+
 export interface StateIF {
   users: {
     error: string | null;
@@ -6,8 +19,7 @@ export interface StateIF {
   };
   places: {
     error: string | null;
-    createdPlace: object;
-    placesData: [];
+    placesData: PlacesIF[];
   };
   products: {
     error: string | null;
@@ -23,7 +35,6 @@ const initialState: StateIF = {
   },
   places: {
     error: '',
-    createdPlace: {},
     placesData: [],
   },
   products: {

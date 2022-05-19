@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
+import { PlacesIF } from '../../redux/initialState';
 
-const usePagination = (data: [], dataLimit: number, pageLimit: number) => {
-  const [paginatedData, setpaginatedData] = useState([]);
+const usePagination = (
+  data: PlacesIF[],
+  dataLimit: number,
+  pageLimit: number
+) => {
+  const [paginatedData, setpaginatedData] = useState<PlacesIF[]>([]);
   const [paginatedGroup, setPaginatedGroup] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pages = Math.ceil(data.length / dataLimit);

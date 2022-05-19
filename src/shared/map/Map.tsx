@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { PlacesIF } from '../../containers/places/pages/Places';
+import { PlacesIF } from '../../redux/initialState';
 import classes from './Map.module.css';
 const Map = (props: { center: PlacesIF['location']; zoom: number }) => {
   const { center, zoom } = props;

@@ -1,19 +1,43 @@
-import initialState from "../initialState";
-import * as types from "../actions/placesActions/types"
+import initialState from '../initialState';
+import { Actions } from '../actions/placesActions/types';
+import { StateIF } from '../initialState';
 
+type Action = {
+  type: Actions;
+  payload: {
+    message: string | null;
+    places: [];
+  };
+};
 
-export default function placesReducer(state = initialState.places, action:{payload:any; type:string}) {
-  switch (action.type) {
-    case types.GET_ALL_PLACES_SUCCESS: {
+export default function placesReducer(
+  state = initialState.places,
+  action: Action
+): StateIF['places'] {
+  const { type, payload } = action;
+  switch (type) {
+    case Actions.GET_ALL_PLACES_SUCCESS: {
       return {
         ...state,
-        placesData: action.payload.places,
+        placesData: payload.places,
       };
     }
-     case types.GET_ALL_PLACES_FAIL: {
+    case Actions.GET_ALL_PLACES_FAIL: {
       return {
         ...state,
-        error: action.payload,
+        error: payload.message,
+      };
+    }
+    case Actions.CREATE_PLACE_SUCCESS: {
+      return {
+        ...state,
+        createdPlace: payload,
+      };
+    }
+    case Actions.CREATE_PLACE_FAIL: {
+      return {
+        ...state,
+        error: payload.message,
       };
     }
     default:
@@ -21,6 +45,6 @@ export default function placesReducer(state = initialState.places, action:{paylo
   }
 }
 
-export const placesSelector = (state:any) => {
+export const placesSelector = (state: StateIF) => {
   return state.places;
 };

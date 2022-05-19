@@ -1,0 +1,29 @@
+:root {
+    --fontSize: 0.8em;
+    --width:12em
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 15em;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+.textArea{
+    height: 10em;
+    width: var(--width);
+    font-size: var(--fontSize);
+}
+.input{
+    width: var(--width);
+    height: 1.3em;
+    font-size: var(--fontSize);
+}

@@ -38,7 +38,7 @@ const apiServices = ({ url, params={},data={}, method, SUCCESS, FAILURE }:Data)=
       return dispatch({
         type: FAILURE,
         status: errorResponse?.response?.status,
-        payload: errorResponse?.response?.data?.message,
+        payload: errorResponse?.response?.data,
       });
     }
   };

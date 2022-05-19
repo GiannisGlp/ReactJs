@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './home/pages/Home';
 import Users from './users/pages/Users';
@@ -18,31 +18,39 @@ export const navLinksData = [
     path: '*',
     element: (
       <main style={{ padding: '1rem' }}>
-        <p style={{ color: 'white' }}>There's nothing here!</p>
+        <p>There's nothing here!</p>
       </main>
     ),
   },
 ];
 
-const MainRoutes = (): ReactElement => {
+const MainRoutes = () => {
   return (
     <div
       style={{
         minHeight: '100vh',
         overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <Navbar />
-
-      <Routes>
-        {navLinksData.map((item, index) => {
-          return (
-            <Route key={index} path={item.path} element={item.element}></Route>
-          );
-        })}
-      </Routes>
-
-      <Footer />
+      <div style={{ flex: 1 }}>
+        <Routes>
+          {navLinksData.map((item) => {
+            return (
+              <Route
+                key={item.path}
+                path={item.path}
+                element={item.element}
+              ></Route>
+            );
+          })}
+        </Routes>
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        <Footer />
+      </div>
     </div>
   );
 };

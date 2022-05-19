@@ -1,28 +1,38 @@
 import initialState from "../initialState";
-import * as types from "../actions/usersActions/types"
+import {Actions} from "../actions/usersActions/types"
+import { StateIF } from "../initialState";
+
+type Action ={
+    type:Actions,
+    payload:{
+      users:[],
+      message:string | null
+    }   
+}
 
 
-export default function usersReducer(state = initialState.users, action:{payload:any; type:string}) {
-  switch (action.type) {
-    case types.GET_ALL_USERS_SUCCESS: {
+export default function usersReducer(state = initialState.users, action:Action):StateIF["users"] {
+  const {type,payload} = action
+  switch (type) {
+    case Actions.GET_ALL_USERS_SUCCESS: {
       return {
         ...state,
-        usersData: action.payload.users,
+        usersData: payload.users
       };
     }
-     case types.GET_ALL_USERS_FAIL: {
+     case Actions.GET_ALL_USERS_FAIL: {
       return {
         ...state,
-        error: action.payload,
+        error: payload.message,
       };
     }
-     case types.LOGIN_SUCCESS: {
+     case Actions.LOGIN_SUCCESS: {
       return {
         ...state,
        loggedIn: true,
       };
     }
-     case types.LOGIN_FAIL: {
+     case Actions.LOGIN_FAIL: {
       return {
         ...state,
        loggedIn: false,
@@ -33,6 +43,6 @@ export default function usersReducer(state = initialState.users, action:{payload
   }
 }
 
-export const usersSelector = (state:any) => {
+export const usersSelector = (state:StateIF) => {
   return state.users;
 };

@@ -9,7 +9,7 @@ import { placesSelector } from './redux/reducers/placesReducer';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { usersData } = useSelector(usersSelector);
+  const { placesData } = useSelector(placesSelector);
   useEffect(() => {
     dispatch(
       // signup({
@@ -17,12 +17,12 @@ const App = () => {
       //   email: 'giannis@giannis.com',
       //   password: 'Giannis123',
       // })
-      // getPlacesByUserId({ uid: '62194ddcbc640c5dad53639d' })
-      getUsersData()
+      getPlacesByUserId({ uid: '62194ddcbc640c5dad53639d' })
+      // getUsersData()
     );
   }, []);
 
-  console.log('hello', usersData);
+  console.log('hello', placesData);
   return (
     <div>
       <MainRoutes />

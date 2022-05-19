@@ -3,7 +3,7 @@ import classes from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { navLinksData } from '../../containers/Routes';
 
-function Navbar() {
+const Navbar = () => {
   const [showBurger, setShowBurger] = useState<boolean>(false);
 
   return (
@@ -18,10 +18,11 @@ function Navbar() {
             : classes.navLinks
         }
       >
-        {navLinksData.map((item, index) => {
+        {navLinksData?.map((item, index) => {
           if (index !== navLinksData.length - 1) {
             return (
               <NavLink
+                onClick={() => setShowBurger(false)}
                 key={item.name}
                 to={item.path}
                 className={showBurger ? classes.linksBurger : classes.link}
@@ -45,5 +46,5 @@ function Navbar() {
       </div>
     </nav>
   );
-}
+};
 export default Navbar;

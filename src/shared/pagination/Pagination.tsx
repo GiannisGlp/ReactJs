@@ -23,7 +23,6 @@ const Pagination = (props: Props) => {
     paginatedGroup,
     children,
   } = props;
-  console.log('current:', currentPage, 'pages:', pages);
   return (
     <>
       <>{children}</>

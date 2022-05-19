@@ -22,6 +22,7 @@ const Places = () => {
   const { placesData } = useSelector(placesSelector);
   const [displayMapModal, setDisplayMapModal] = useState<boolean>(false);
   const [displayAddModal, setDisplayAddModal] = useState<boolean>(false);
+  const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [mapLocation, setMapLocation] = useState<PlacesIF['location']>({
     lat: 0,
     lng: 0,
@@ -36,8 +37,8 @@ const Places = () => {
     setDisplayMapModal(true);
   };
 
-  const onClickEdit = (id: string) => {
-    console.log(id);
+  const onClickEditHandler = (id: string) => {
+    setDisplayEditModal(true);
   };
 
   const dataLimit = 10;
@@ -60,12 +61,16 @@ const Places = () => {
       </div>
     );
   };
-  console.log('placesdata', placesData);
+
   const clearAddPlaceForm = () => {
     setDisplayAddModal(false);
     setTitleValue('');
     setAddressValue('');
     setDesciptionValue('');
+  };
+
+  const onClickCloseEditModal = () => {
+    setDisplayEditModal(false);
   };
 
   const addNewPlaceHandler = () => {
@@ -115,6 +120,22 @@ const Places = () => {
           />
         }
       />
+
+      {/* Edit Modal */}
+      <Modal
+        showModal={displayEditModal}
+        setShowModal={setDisplayEditModal}
+        firstButtonAction={onClickCloseEditModal}
+        firstButtonTitle="Cancel"
+        secondButtonTitle="Ok"
+        secondButton={true}
+        okButton={() => console.log('ok')}
+        content={
+          <div>
+            <p>Edit</p>
+          </div>
+        }
+      />
       {/*Map Modal  */}
       <Modal
         showModal={displayMapModal}
@@ -142,7 +163,7 @@ const Places = () => {
                     data={place}
                     onClickMap={onClickMapHandler}
                     onClickDelete={onClickDeleteHandler}
-                    onClickEdit={onClickEdit}
+                    onClickEdit={onClickEditHandler}
                   />
                 );
               })}

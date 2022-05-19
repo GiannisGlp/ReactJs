@@ -17,6 +17,7 @@ export default function placesReducer(
   action: Action
 ): StateIF['places'] {
   const { type, payload } = action;
+
   switch (type) {
     case Actions.GET_ALL_PLACES_SUCCESS: {
       return {
@@ -47,7 +48,7 @@ export default function placesReducer(
     case Actions.DELETE_PLACE_SUCCESS: {
       const arr: PlacesIF[] = Object.assign([], state.placesData);
       const index = state.placesData.findIndex((x) => x.id === payload.placeId);
-      console.log('index', payload.placeId);
+
       arr.splice(index, 1);
       return {
         ...state,

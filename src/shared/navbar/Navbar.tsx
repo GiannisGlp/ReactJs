@@ -15,7 +15,7 @@ const Navbar = () => {
         className={
           showBurger
             ? [classes.navLinks, classes.navActive].join(' ')
-            : classes.navLinks
+            : [classes.navLinks].join(' ')
         }
       >
         {navLinksData?.map((item, index) => {

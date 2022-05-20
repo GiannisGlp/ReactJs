@@ -6,7 +6,7 @@ type Action = {
   type: Actions;
   payload: {
     message: string | null;
-    places: [];
+    places: PlacesIF[];
     place: PlacesIF;
     placeId: string;
   };
@@ -20,6 +20,7 @@ export default function placesReducer(
 
   switch (type) {
     case Actions.GET_ALL_PLACES_SUCCESS: {
+      console.log('all', payload);
       return {
         ...state,
         placesData: payload.places,
@@ -55,6 +56,22 @@ export default function placesReducer(
       };
     }
     case Actions.DELETE_PLACE_FAIL: {
+      return {
+        ...state,
+        error: payload.message,
+      };
+    }
+    case Actions.UPDATE_PLACE_SUCCESS: {
+      const stateArr: PlacesIF[] = Object.assign([], state.placesData);
+      const indexOfPayload = payload.place.id;
+      const index = stateArr.findIndex((x) => x.id === indexOfPayload);
+      stateArr[index] = payload.place;
+      return {
+        ...state,
+        placesData: stateArr,
+      };
+    }
+    case Actions.UPDATE_PLACE_FAIL: {
       return {
         ...state,
         error: payload.message,

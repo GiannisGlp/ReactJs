@@ -2,6 +2,9 @@
 .container{
     display: flex;
     flex-direction: column;
+    min-height:83vh;
+    min-width:auto;
+    background-color: aqua;
 }
 .cardsWrapper{
     display: flex;
@@ -19,4 +22,10 @@
     align-self: flex-end;
     margin-top: 1em;
     margin-right: 1em;
+}
+.map {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }

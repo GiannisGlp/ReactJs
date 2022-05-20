@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { placesSelector } from '../../../redux/reducers/placesReducer';
 import {
   getPlacesByUserId,
   createPlace,
   deletePlace,
+  updatePlace,
 } from '../../../redux/actions/placesActions';
 import classes from './Places.module.css';
-import Map from '../../../shared/map/Map';
 import Modal from '../../../shared/modal/Modal';
 import PlacesCard from '../components/PlacesCard';
 import MainButton from '../../../shared/buttons/MainButton';
@@ -17,32 +17,54 @@ import usePagination from '../../../shared/pagination/usePagination';
 import AddModalContent from '../components/AddModalContent';
 import { PlacesIF } from '../../../redux/initialState';
 
+interface Placeholders {
+  title: string;
+  description: string;
+  id: string;
+}
+
 const Places = () => {
   const dispatch = useDispatch();
   const { placesData } = useSelector(placesSelector);
+  const mapRef = useRef<any>(null);
   const [displayMapModal, setDisplayMapModal] = useState<boolean>(false);
   const [displayAddModal, setDisplayAddModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
-  const [mapLocation, setMapLocation] = useState<PlacesIF['location']>({
-    lat: 0,
-    lng: 0,
+  const [editModalValues, setEditModalValues] = useState<Placeholders>({
+    title: '',
+    description: '',
+    id: '',
   });
 
   const [titleValue, setTitleValue] = useState('');
   const [addressValue, setAddressValue] = useState('');
   const [descriptionValue, setDesciptionValue] = useState('');
 
-  const onClickMapHandler = (location: PlacesIF['location']) => {
-    setMapLocation(location);
+  const onClickMapHandler = useCallback(() => {
     setDisplayMapModal(true);
-  };
+  }, []);
 
-  const onClickEditHandler = (id: string) => {
+  const onClickEditHandler = (
+    title: string,
+    description: string,
+    id: string
+  ) => {
+    setEditModalValues({ title, description, id });
     setDisplayEditModal(true);
   };
 
-  const dataLimit = 10;
-  const pageLimit = Math.ceil(placesData.length / dataLimit);
+  const onClickOKEditHandler = () => {
+    dispatch(
+      updatePlace(
+        { pid: editModalValues.id },
+        { title: titleValue, description: descriptionValue }
+      )
+    );
+    setAllModalStateNull();
+    setDisplayEditModal(false);
+  };
+
+  const dataLimit = 2;
 
   const {
     goToNextPage,
@@ -52,24 +74,29 @@ const Places = () => {
     currentPage,
     paginatedData,
     paginatedGroup,
-  } = usePagination(placesData, dataLimit, pageLimit);
+  } = usePagination(placesData, dataLimit);
 
-  const MapModalContent = () => {
+  const MapModalContent = useCallback(() => {
     return (
       <div className={classes.mapContainer}>
-        <Map center={mapLocation} zoom={14} />
+        {/* <Map center={mapLocation} zoom={14} /> */}
+        <div ref={mapRef} className={classes.map}></div>
       </div>
     );
-  };
-
-  const clearAddPlaceForm = () => {
-    setDisplayAddModal(false);
+  }, []);
+  const setAllModalStateNull = useCallback(() => {
     setTitleValue('');
     setAddressValue('');
     setDesciptionValue('');
-  };
+  }, []);
+
+  const clearAddPlaceForm = useCallback(() => {
+    setDisplayAddModal(false);
+    setAllModalStateNull();
+  }, [setAllModalStateNull]);
 
   const onClickCloseEditModal = () => {
+    setAllModalStateNull();
     setDisplayEditModal(false);
   };
 
@@ -84,6 +111,7 @@ const Places = () => {
     );
     clearAddPlaceForm();
   };
+
   const onClickDeleteHandler = (id: string) => {
     dispatch(deletePlace({ pid: id }));
   };
@@ -91,7 +119,6 @@ const Places = () => {
   useEffect(() => {
     dispatch(getPlacesByUserId({ uid: '62194ddcbc640c5dad53639d' }));
   }, [dispatch]);
-
   return (
     <div className={classes.container}>
       <div className={classes.addButtonContainer}>
@@ -111,6 +138,7 @@ const Places = () => {
         okButton={addNewPlaceHandler}
         content={
           <AddModalContent
+            modalTitle="Create New Place"
             titleValue={titleValue}
             addressValue={addressValue}
             descriptionValue={descriptionValue}
@@ -129,11 +157,18 @@ const Places = () => {
         firstButtonTitle="Cancel"
         secondButtonTitle="Ok"
         secondButton={true}
-        okButton={() => console.log('ok')}
+        okButton={onClickOKEditHandler}
         content={
-          <div>
-            <p>Edit</p>
-          </div>
+          <AddModalContent
+            modalTitle="Edit Place"
+            titleValue={titleValue}
+            address={false}
+            titlePlaceholder={editModalValues.title}
+            descriptionPlaceholder={editModalValues.description}
+            descriptionValue={descriptionValue}
+            setDescriptionValue={setDesciptionValue}
+            setTitleValue={setTitleValue}
+          />
         }
       />
       {/*Map Modal  */}
@@ -159,6 +194,7 @@ const Places = () => {
               {paginatedData?.map((place: PlacesIF) => {
                 return (
                   <PlacesCard
+                    mapRef={mapRef}
                     key={place.id}
                     data={place}
                     onClickMap={onClickMapHandler}

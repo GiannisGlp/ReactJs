@@ -3,7 +3,8 @@ export interface PlacesIF {
   creator: string;
   description: string;
   id: string;
-  image: string;
+  // image: string;
+  placeId: string;
   location: {
     lat: number;
     lng: number;

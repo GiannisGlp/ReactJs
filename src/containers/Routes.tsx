@@ -48,7 +48,7 @@ const MainRoutes = () => {
           })}
         </Routes>
       </div>
-      <div style={{ marginTop: '2rem' }}>
+      <div style={{}}>
         <Footer />
       </div>
     </div>

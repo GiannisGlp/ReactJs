@@ -19,11 +19,15 @@
 }
 .textArea{
     height: 10em;
-    width: var(--width);
+    width: 15em;
     font-size: var(--fontSize);
 }
 .input{
     width: var(--width);
     height: 1.3em;
     font-size: var(--fontSize);
+}
+
+::-webkit-input-placeholder{
+    text-align: center;
 }

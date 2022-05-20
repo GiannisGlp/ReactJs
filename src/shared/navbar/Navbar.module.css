@@ -3,8 +3,9 @@
 .navBar {
   display: flex;
   /* justify-content: space-around; */
+  width: 100%;
   align-items: center;
-  min-height: 9vh;
+  min-height: 7vh;
   /* border: 1px solid var(--neongreen); */
   border-radius: var(--border-radius);
   /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
@@ -78,11 +79,11 @@
   .navLinks {
     position: absolute;
     right: 0;
-    height: 60vh;
-    top: 9.5vh;
+    height: 20em;
+    top: 3em;
     flex-direction: column;
     align-items: center;
-    width: 14em;
+    width: 9em;
     transform: translateX(100%);
     transition: transform 0.5s ease-in;
     background-color: var(--black);
@@ -90,6 +91,10 @@
     border-radius: var(--border-radius);
     font-weight: 600;
     z-index: 1;
+  }
+  .displayNone {
+    animation: navLinkFadeIn ease-in forwards 0.3s;
+    display: none;
   }
 
   .burger {

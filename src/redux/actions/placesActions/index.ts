@@ -12,9 +12,13 @@ export interface CreatePlaceData {
 type GetPlaceByUserID = {
   uid: string;
 };
-type DeletePlace = {
+export type DeletePlace = {
   pid: string;
 };
+export interface UpdatePlaceData {
+  description: string;
+  title: string;
+}
 
 export const getPlacesByUserId = (params: GetPlaceByUserID) => {
   return async (dispatch: AppDispatch) =>
@@ -51,6 +55,20 @@ export const deletePlace = (params: DeletePlace) => {
         params: params,
         SUCCESS: Actions.DELETE_PLACE_SUCCESS,
         FAILURE: Actions.DELETE_PLACE_FAIL,
+      })
+    );
+};
+
+export const updatePlace = (params: DeletePlace, data: UpdatePlaceData) => {
+  return async (dispatch: AppDispatch) =>
+    await dispatch(
+      apiServices({
+        url: '/places/updatePlace',
+        method: 'patch',
+        params: params,
+        data: data,
+        SUCCESS: Actions.UPDATE_PLACE_SUCCESS,
+        FAILURE: Actions.UPDATE_PLACE_FAIL,
       })
     );
 };

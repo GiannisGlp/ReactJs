@@ -20,7 +20,6 @@ export default function placesReducer(
 
   switch (type) {
     case Actions.GET_ALL_PLACES_SUCCESS: {
-      console.log('all', payload);
       return {
         ...state,
         placesData: payload.places,

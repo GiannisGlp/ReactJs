@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Modal.module.css';
 import MainButton from '../buttons/MainButton';
-
+import { LayoutBackground } from '../../utilities/layout';
 interface IModal {
   firstButtonTitle: string;
   secondButtonTitle?: string;
@@ -29,7 +29,7 @@ const Modal = ({
   return (
     <div className={showHideClassName} onClick={() => setShowModal(false)}>
       <section
-        className={classes.modalMain}
+        className={LayoutBackground(classes.modalMain)}
         onClick={(e) => e.stopPropagation()}
       >
         {/* <div className={classes.modalTop}></div> */}

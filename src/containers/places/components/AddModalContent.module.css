@@ -1,13 +1,15 @@
-:root {
-    --fontSize: 0.8em;
-    --width:12em
-}
+@import "../../../utilities/cssVariables.css";
 
 .container{
     display: flex;
     flex-direction: column;
     height: 15em;
     align-items: center;
+}
+.modalTitle {
+    font-size: calc(var(--font-size)*1.2);
+    font-weight: bold;
+    text-transform: uppercase;
 }
 .form{
     display: flex;
@@ -20,12 +22,14 @@
 .textArea{
     height: 10em;
     width: 15em;
-    font-size: var(--fontSize);
+    font-size:var(--font-size);
+   resize:none
 }
 .input{
-    width: var(--width);
-    height: 1.3em;
-    font-size: var(--fontSize);
+    width: 15em;
+    height: 1.6em;
+    font-size: var(--font-size);
+ 
 }
 
 ::-webkit-input-placeholder{

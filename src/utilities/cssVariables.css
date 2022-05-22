@@ -8,4 +8,29 @@
   --hover-white: rgb(245, 255, 240);
   --black: rgb(40, 40, 43);
   --border-radius: 6px;
+
+
+  --main-elements-background-color: rgba(40, 40, 40, 0.9);
+  --font-size: 0.7em;
+  --box-shadow: 1.2em 1.5em 1.4em -2em var(--light-box-shadow-color) ;
+  --border-radius: 6px;
+
+  /* white template */
+  --light-text-color: rgba(0, 0, 0,1);
+  --light-elements-background-color: rgba(255, 255, 255,1);
+  --light-main-button-background-color: rgba(255, 255, 255, 0.3);
+  --light-borders-color: rgba(148,0,211,1);
+  --light-box-shadow-color:rgba(0,0,0,1);
+ 
+
+  /* black template */
+  --dark-text-color: rgba(228, 255, 255, 0.8);
+  --dark-elements-background-color:  rgb(40, 40, 43, 1);
+  --dark-main-button-background-color: rgba(255, 255, 255, 0.3);
+  --dark-input-Background-color:rgba(100, 100, 100, 0.8);
+
+
+  --max-width:768px
 }
+
+

@@ -1,0 +1,79 @@
+@import "../../utilities/cssVariables.css";
+:root{
+	--move-dis:1.6em
+}
+.switchWrapper{
+	display:flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items:center;
+	text-align: center;
+	
+	margin:0em 1em 0 0;
+}
+.switchTitle{
+	font-size: calc(var(--font-size));
+	text-transform: capitalize;
+	color:var(--dark-text-color)
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 3em;
+	height: 1em;
+
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 12px;
+	width: 12px;
+	left: 0.35em;
+	bottom: 0.15em;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked+.slider {
+	background-color: var(--neongreen);
+}
+
+input:focus+.slider {
+	box-shadow: 0 0 1px var(--neongreen);
+}
+
+input:checked+.slider:before {
+	-webkit-transform: translateX(var(--move-dis));
+	-ms-transform: translateX(var(--move-dis));
+	transform: translateX(var(--move-dis));
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 10em;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}

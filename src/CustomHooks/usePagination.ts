@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { PlacesIF } from '../../redux/initialState';
+import { PlacesIF } from '../redux/initialState';
 
 const usePagination = (data: PlacesIF[], dataLimit: number) => {
   const [paginatedData, setpaginatedData] = useState<PlacesIF[]>([]);

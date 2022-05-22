@@ -1,12 +1,33 @@
+@import '../../utilities/cssVariables.css';
+
+
 .card {
-    width: auto;
-    background-color: var(--main-background);
+    width: 15em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    border: 1px solid rgba(128, 0, 128,1);
     margin: 1em 1em 1em 1em;
     border-radius: 0.5rem;
-    box-shadow: rgba(150, 150, 150, 1) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(100, 100, 200, 1) 0px -2px 6px 0px inset;
+    border-top: 2px solid var(--neongreen);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background-color: rgba(200, 200, 200, 0.2);
 }
+
+
+@media (max-width: 500px) {
+    .card {
+        width: 100%;
+        margin:0 0 0.5em 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+    
+
+
+
+
+
+

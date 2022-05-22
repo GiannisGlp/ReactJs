@@ -1,15 +1,22 @@
+@import "../../utilities/cssVariables.css";
+
+
 
 .pagination {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+   background-color: var(--dark-main-button-background-color);
+    height: 2.5em;
+    width:100%;
+    box-shadow: var(--box-shadow);
 }
 
 .paginationItem {
-    background: #fff;
-    border:0.1em solid rgba(0, 0, 255, 0.4);
+    border:0.1em solid var(--dark-elements-background-color);
     /* padding: 10px 15px; */
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     height: 2em;
     width: 2em;
     position: relative;
@@ -27,23 +34,24 @@
 
 .prev,
 .next {
-    display: flex;
-    width: 4em;
-    background: #fff;
-    border: none;
-    padding: 0.1em;
-    color: blue;
-    box-shadow: 0 0 3px rgba(0, 0, 255, 0.4);
-    margin: 0 0.5em;
-    cursor: pointer;
-    font-size: 0.7rem;
+display: flex;
+    width: 3em;
+    height: 2em;
     justify-content: center;
-    border-radius: 3px;
+    text-align: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    border: 0;
+    margin: 0 2em 0 2em;
+    padding: 0;
+    font-size: var(--font-size);
+    cursor: pointer;
 }
 
 .paginationItem.active {
-    border: 1px solid #888;
-    color: red;
+    border: 1px solid var(--neongreen);
+    color: var(--magenta);
     pointer-events: none;
 }
 

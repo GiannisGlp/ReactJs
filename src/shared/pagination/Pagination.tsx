@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Pagination.module.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { LayoutInput, LayoutBackground } from '../../utilities/layout';
 
 interface Props {
   goToNextPage: () => void;
@@ -23,6 +24,30 @@ const Pagination = (props: Props) => {
     paginatedGroup,
     children,
   } = props;
+
+  const paginationItemClass = (type: string, item: number = 1) => {
+    if (type === 'prev') {
+      const newClassName =
+        currentPage === 1
+          ? [classes.prev, classes.disabled].join(' ')
+          : classes.prev;
+      return LayoutInput(newClassName);
+    }
+
+    if (type === 'next') {
+      const newClassName =
+        currentPage === pages
+          ? [classes.next, classes.disabled].join(' ')
+          : classes.next;
+      return LayoutInput(newClassName);
+    } else {
+      const newClassName =
+        currentPage === item
+          ? [classes.paginationItem, classes.active].join(' ')
+          : classes.paginationItem;
+      return LayoutInput(newClassName);
+    }
+  };
   return (
     <>
       <>{children}</>
@@ -30,11 +55,7 @@ const Pagination = (props: Props) => {
         <div className={classes.pagination}>
           <button
             onClick={goToPreviousPage}
-            className={
-              currentPage === 1
-                ? [classes.prev, classes.disabled].join(' ')
-                : classes.prev
-            }
+            className={paginationItemClass('prev')}
           >
             <ArrowBackIosIcon />
           </button>
@@ -47,22 +68,14 @@ const Pagination = (props: Props) => {
                 let innerText = event.currentTarget.innerText;
                 changePage(innerText);
               }}
-              className={
-                currentPage === item
-                  ? [classes.paginationItem, classes.active].join(' ')
-                  : classes.paginationItem
-              }
+              className={paginationItemClass('', item)}
             >
               <span>{item}</span>
             </button>
           ))}
           <button
             onClick={goToNextPage}
-            className={
-              currentPage === pages
-                ? [classes.next, classes.disabled].join(' ')
-                : classes.next
-            }
+            className={paginationItemClass('next')}
           >
             <ArrowForwardIosIcon />
           </button>

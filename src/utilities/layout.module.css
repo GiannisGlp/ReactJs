@@ -1,0 +1,22 @@
+@import "./cssVariables.css";
+
+.darkModeText {
+    color: var(--dark-text-color);
+}
+
+.lightModeText {
+    color: var(--light-text-color);
+}
+
+.darkModeBackgroundColor {
+    background-color: var(--dark-elements-background-color);
+}
+
+.lightModeBackgroundColor {
+    background-color: var(--light-elements-background-color);
+}
+
+
+.darkModeInput{
+    background-color: var(--dark-input-Background-color);
+}

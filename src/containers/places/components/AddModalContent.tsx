@@ -1,5 +1,10 @@
 import React from 'react';
 import classes from './AddModalContent.module.css';
+import {
+  LayoutText,
+  LayoutBackground,
+  LayoutInput,
+} from '../../../utilities/layout';
 
 interface AddModalContentProps {
   titlePlaceholder?: string;
@@ -27,11 +32,11 @@ const AddModalContent = ({
 }: AddModalContentProps) => {
   return (
     <div className={classes.container}>
-      <h3>{modalTitle}</h3>
+      <h3 className={LayoutText(classes.modalTitle)}>{modalTitle}</h3>
 
       <form className={classes.form}>
         <input
-          className={classes.input}
+          className={LayoutInput(classes.input)}
           maxLength={30}
           placeholder={titlePlaceholder}
           type="text"
@@ -42,7 +47,7 @@ const AddModalContent = ({
         />
         {address && (
           <input
-            className={classes.input}
+            className={LayoutInput(classes.input)}
             maxLength={30}
             placeholder="Address"
             type="text"
@@ -54,7 +59,7 @@ const AddModalContent = ({
         )}
 
         <textarea
-          className={classes.textArea}
+          className={LayoutInput(classes.textArea)}
           id="subject"
           name="subject"
           placeholder={descriptionPlaceholder}

@@ -13,15 +13,22 @@ import PlacesCard from '../components/PlacesCard';
 import MainButton from '../../../shared/buttons/MainButton';
 import AddIcon from '@mui/icons-material/Add';
 import Pagination from '../../../shared/pagination/Pagination';
-import usePagination from '../../../shared/pagination/usePagination';
+import usePagination from '../../../CustomHooks/usePagination';
 import AddModalContent from '../components/AddModalContent';
 import { PlacesIF } from '../../../redux/initialState';
+import { LayoutText } from '../../../utilities/layout';
 
 interface Placeholders {
   title: string;
   description: string;
   id: string;
 }
+interface PlaceIdTitle {
+  id: string;
+  title: string;
+}
+
+const dataLimit = 2;
 
 const Places = () => {
   const dispatch = useDispatch();
@@ -30,6 +37,11 @@ const Places = () => {
   const [displayMapModal, setDisplayMapModal] = useState<boolean>(false);
   const [displayAddModal, setDisplayAddModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
+  const [displayDeleteModal, setDisplayDeleteModal] = useState<boolean>(false);
+  const [placeIdTitle, setPlaceIdTitle] = useState<PlaceIdTitle>({
+    id: '',
+    title: '',
+  });
   const [editModalValues, setEditModalValues] = useState<Placeholders>({
     title: '',
     description: '',
@@ -64,8 +76,6 @@ const Places = () => {
     setDisplayEditModal(false);
   };
 
-  const dataLimit = 2;
-
   const {
     goToNextPage,
     goToPreviousPage,
@@ -79,7 +89,6 @@ const Places = () => {
   const MapModalContent = useCallback(() => {
     return (
       <div className={classes.mapContainer}>
-        {/* <Map center={mapLocation} zoom={14} /> */}
         <div ref={mapRef} className={classes.map}></div>
       </div>
     );
@@ -100,6 +109,10 @@ const Places = () => {
     setDisplayEditModal(false);
   };
 
+  const onClickCloseDeleteModal = () => {
+    setDisplayDeleteModal(false);
+  };
+
   const addNewPlaceHandler = () => {
     dispatch(
       createPlace({
@@ -112,8 +125,15 @@ const Places = () => {
     clearAddPlaceForm();
   };
 
-  const onClickDeleteHandler = (id: string) => {
-    dispatch(deletePlace({ pid: id }));
+  const onClickDeleteOkHandler = () => {
+    dispatch(deletePlace({ pid: placeIdTitle.id }));
+    setPlaceIdTitle({ id: '', title: '' });
+    setDisplayDeleteModal(false);
+  };
+
+  const onClickDeleteHandler = (id: string, title: string) => {
+    setDisplayDeleteModal(true);
+    setPlaceIdTitle({ id, title: title });
   };
 
   useEffect(() => {
@@ -178,6 +198,22 @@ const Places = () => {
         firstButtonAction={() => setDisplayMapModal(false)}
         firstButtonTitle="Ok"
         content={<MapModalContent />}
+      />
+
+      {/* Delete Modal */}
+      <Modal
+        showModal={displayDeleteModal}
+        setShowModal={setDisplayDeleteModal}
+        firstButtonAction={onClickCloseDeleteModal}
+        firstButtonTitle="Cancel"
+        secondButtonTitle="Ok"
+        secondButton={true}
+        okButton={onClickDeleteOkHandler}
+        content={
+          <p className={LayoutText(classes.deleteContent)}>
+            are you sure you want to delete {placeIdTitle.title}
+          </p>
+        }
       />
 
       {placesData.length > 0 ? (

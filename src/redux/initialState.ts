@@ -3,14 +3,19 @@ export interface PlacesIF {
   creator: string;
   description: string;
   id: string;
-  // image: string;
   placeId: string;
   location: {
     lat: number;
     lng: number;
   };
+  preferences: {
+    like: boolean;
+    check: boolean;
+    favorite: boolean;
+  };
   title: string;
 }
+export type ColorMode = 'dark' | 'light';
 
 export interface StateIF {
   users: {
@@ -25,6 +30,9 @@ export interface StateIF {
   products: {
     error: string | null;
     productsData: [];
+  };
+  layout: {
+    colorMode: ColorMode;
   };
 }
 
@@ -41,6 +49,9 @@ const initialState: StateIF = {
   products: {
     error: '',
     productsData: [],
+  },
+  layout: {
+    colorMode: 'light',
   },
 };
 

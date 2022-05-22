@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, ReactNode } from 'react';
 import Card from '../../../shared/card/Card';
 import MainButton from '../../../shared/buttons/MainButton';
 import classes from './PlacesCard.module.css';
@@ -6,21 +6,41 @@ import { PlacesIF } from '../../../redux/initialState';
 import MapIcon from '@mui/icons-material/Map';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
-import useMap from '../../../shared/map/useMap';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import useMap from '../../../CustomHooks/useMap';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import StarIcon from '@mui/icons-material/Star';
+import { LayoutText, LayoutBackground } from '../../../utilities/layout';
 
+type LikesIconsWrapperProps = {
+  children: ReactNode;
+  active: boolean;
+};
 const PlacesCard = (props: {
   data: PlacesIF;
   onClickMap: () => void;
-  onClickDelete: (id: string) => void;
+  onClickDelete: (id: string, title: string) => void;
   onClickEdit: (title: string, description: string, id: string) => void;
   mapRef: any;
 }) => {
   const { data, onClickMap, onClickDelete, onClickEdit, mapRef } = props;
   const [imageNumber, setImageNumber] = useState<number>(0);
+  const [colorClass, setColorClass] = useState<string>('red');
 
   const googlePlaceImage = useMap(data.location, 12, mapRef, data.placeId);
+
+  const LikesIconWraper = ({ children, active }: LikesIconsWrapperProps) => {
+    return (
+      <div
+        className={active ? classes.imagesLikesRed : classes.imagesLikesGrey}
+        onClick={() => console.log('clicked')}
+      >
+        {children}
+      </div>
+    );
+  };
 
   const onClickNextImageHandler = () => {
     setImageNumber((prevState) => prevState + 1);
@@ -28,44 +48,57 @@ const PlacesCard = (props: {
   const onClickPrevImageHandler = () => {
     setImageNumber((prevState) => prevState - 1);
   };
-
+  console.log(data);
   return (
     <Card>
-      <h1 className={classes.title}>{data.title}</h1>
-      <p className={classes.paragraph}>{data.description}</p>
-      <p className={classes.paragraph}>{data.address}</p>
-      <div className={classes.imagesWrapper}>
+      <h1 className={LayoutText(classes.title)}>{data.title}</h1>
+      <p className={LayoutText(classes.paragraph)}>{data.description}</p>
+      <p className={LayoutText(classes.paragraph)}>{data.address}</p>
+      <div className={classes.imagesLikesWrapper}>
+        <LikesIconWraper active={data.preferences.check}>
+          <LibraryAddCheckIcon fontSize="small" />
+        </LikesIconWraper>
+        <LikesIconWraper active={data.preferences.favorite}>
+          <FavoriteIcon fontSize="small" />
+        </LikesIconWraper>
+        <LikesIconWraper active={data.preferences.like}>
+          <StarIcon fontSize="small" />
+        </LikesIconWraper>
+      </div>
+
+      <img
+        className={classes.image}
+        src={
+          googlePlaceImage
+            ? googlePlaceImage[imageNumber].getUrl({
+                maxWidth: 450,
+                maxHeight: 450,
+              })
+            : ''
+        }
+        alt={data.title}
+      />
+      <div className={classes.arrowWrapper}>
         <button
-          className={classes.arrowWrapper}
+          className={LayoutBackground(classes.arrow)}
           type="button"
           onClick={onClickPrevImageHandler}
           disabled={imageNumber === 0}
         >
-          <ArrowBackIosIcon />
+          <ArrowCircleLeftIcon />
         </button>
-
-        <img
-          className={classes.image}
-          src={
-            googlePlaceImage
-              ? googlePlaceImage[imageNumber].getUrl({
-                  maxWidth: 500,
-                  maxHeight: 500,
-                })
-              : ''
-          }
-          alt={data.title}
-        />
-
+        <p className={LayoutText(classes.paragraph)}>{imageNumber + 1}</p>
         <button
-          className={classes.arrowWrapper}
+          className={LayoutBackground(classes.arrow)}
           type="button"
           onClick={onClickNextImageHandler}
           disabled={imageNumber === 9}
         >
-          <ArrowForwardIosIcon />
+          <ArrowCircleRightIcon />
         </button>
       </div>
+
+      {/* </div> */}
       <div className={classes.cardFooter}>
         <MainButton onClick={onClickMap} title={<MapIcon />} />
         <MainButton
@@ -73,7 +106,7 @@ const PlacesCard = (props: {
           title={<EditIcon />}
         />
         <MainButton
-          onClick={() => onClickDelete(data.id)}
+          onClick={() => onClickDelete(data.id, data.title)}
           title={<DeleteOutlineIcon />}
         />
       </div>

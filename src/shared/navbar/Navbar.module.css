@@ -7,7 +7,7 @@
   align-items: center;
   min-height: 7vh;
   /* border: 1px solid var(--neongreen); */
-  border-radius: var(--border-radius);
+  /* border-radius: var(--border-radius); */
   /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
   background-color: var(--black);
   /* border: 0.5px solid var(--red); */
@@ -49,7 +49,7 @@
   text-align: center;
   width: 5rem;
   text-transform: capitalize;
-  animation: navLinkFadeIn ease-in forwards 0.3s;
+  /* animation: navLinkFadeIn ease-in forwards 0.3s; */
 }
 
 .link:hover,
@@ -80,7 +80,7 @@
     position: absolute;
     right: 0;
     height: 20em;
-    top: 3em;
+    top: 3.7em;
     flex-direction: column;
     align-items: center;
     width: 9em;
@@ -107,6 +107,10 @@
 
 .navActive {
   transform: translateX(0%);
+}
+
+.borderBottom {
+  border-bottom: 1px solid var(--red);
 }
 
 @keyframes navLinkFadeIn {

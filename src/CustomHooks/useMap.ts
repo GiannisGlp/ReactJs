@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { PlacesIF } from '../../redux/initialState';
+import { PlacesIF } from '../redux/initialState';
 
 const Map = (
   center: PlacesIF['location'],
